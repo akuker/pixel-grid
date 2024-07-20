@@ -1,0 +1,9 @@
+[Service]
+Type=simple
+WorkingDirectory=/home/akuker/pixel-grid/src/
+ExecStart= sudo bash -c "source .venv/bin/activate && python3 pixel_grid.py"
+KillSignal=SIGINT
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target
