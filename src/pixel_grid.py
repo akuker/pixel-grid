@@ -234,6 +234,9 @@ class GifFrameManager:
         self.file_list = os.listdir(self.dir_path)
 
     def _open_next_file(self):
+        self.file_list = os.listdir(self.dir_path)
+        if(self.cur_file_idx > len(self.file_list)):
+            self.cur_file_idx = 0
         file_name = self.file_list[self.cur_file_idx]
         self.cur_image_file_name = os.path.join(self.dir_path, file_name)
         print(f'Opening {self.cur_image_file_name}')
@@ -252,7 +255,7 @@ class GifFrameManager:
         self.cur_frame_idx = self.cur_frame_idx + 1
         # Check if we went beyond the end of the image
         if(self.cur_frame_idx >= self.cur_image_file.n_frames):
-            print(f'Frame {self.cur_frame_idx} is beyond the end of the image {self.cur_image_file_name}')
+            # print(f'Frame {self.cur_frame_idx} is beyond the end of the image {self.cur_image_file_name}')
             self.cur_image_file = None
             self.cur_image_file_name = ''
         return frame_pixels
@@ -331,7 +334,7 @@ def draw_frame(strip, frame_pixels):
             strip.setPixelColor(led_buff_idx, wscolor_dimmer)
             cur_pixel_idx = cur_pixel_idx+1
     finish = time.time()
-    print(f'processing time: {finish - start}')
+    # print(f'processing time: {finish - start}')
     strip.show()
 
 def get_gif_frames(gif_path, output_dir):
